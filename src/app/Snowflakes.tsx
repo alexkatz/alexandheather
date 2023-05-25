@@ -15,6 +15,7 @@ import useResizeObserver from 'use-resize-observer';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { random } from '@/utils/random';
 import { useDebouncedCallback } from 'use-debounce';
+import { twMerge } from 'tailwind-merge';
 
 type FlakeInfo = {
   scaleFactor: number;
@@ -45,7 +46,7 @@ type Props = {
   className?: string;
 };
 
-export default function Snowflakes({}: Props) {
+export default function Snowflakes({ className }: Props) {
   const { ref: containerRef, width = 0, height = 0 } = useResizeObserver();
   const listRef = useRef<HTMLDivElement>(null);
   const [flakesPerRow, setFlakesPerRow] = useState(0);
@@ -116,10 +117,7 @@ export default function Snowflakes({}: Props) {
   }, [addFlakeRow, flakeRows.length, virtualItems]);
 
   return (
-    <div
-      ref={containerRef}
-      className='snowflakes fixed -z-10 h-[100vh] w-[100vw]'
-    >
+    <div ref={containerRef} className={twMerge('snowflakes', className)}>
       {height > 0 && (
         <div
           ref={listRef}
@@ -158,7 +156,7 @@ export default function Snowflakes({}: Props) {
                         ) *
                           WIND_AMPLITUDE;
 
-                      const rightTranslate =
+                      const topTranslate =
                         rowStart >= bottomStart
                           ? top
                           : top -
@@ -171,16 +169,15 @@ export default function Snowflakes({}: Props) {
                           key={`${virtualRow.key}-${index}`}
                           className='absolute will-change-transform'
                           src={`/snowflake-${type}.png`}
-                          width={BASE_FLAKE_SIZE}
-                          height={BASE_FLAKE_SIZE}
+                          width={80}
+                          height={60}
                           style={{
                             opacity,
                             transform: `
-                          translate(${leftTranslate}px, ${rightTranslate}px)
+                          translate(${leftTranslate}px, ${topTranslate}px)
                           scale(${-(BASE_FLAKE_SIZE * scaleFactor)}%)
                           rotate(${degrees}deg)
                           `,
-                            transition: 'translate 0.5s ease-out',
                           }}
                           alt='snowflake'
                         />
