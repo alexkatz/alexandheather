@@ -16,6 +16,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { random } from '@/utils/random';
 import { useDebouncedCallback } from 'use-debounce';
 import { twMerge } from 'tailwind-merge';
+import { animated } from '@react-spring/web';
 
 type FlakeInfo = {
   scaleFactor: number;
@@ -34,10 +35,10 @@ const OPACITY_FACTOR = 2;
 const BASE_FLAKE_SIZE = 100;
 const MIN_SCALE_FACTOR = 10;
 const MAX_SCALE_FACTOR = 100;
-const FLAKES_PER_ROW_FACTOR = 0.2;
+const FLAKES_PER_ROW_FACTOR = 0.4;
 
-const MIN_FLAKE_OPACITY = 10;
-const MAX_FLAKE_OPACITY = 90;
+const MAX_FLAKE_OPACITY = 30;
+const MIN_FLAKE_OPACITY = 1;
 
 const WIND_AMPLITUDE = 50;
 const WIND_FREQUENCY = 0.001;
@@ -53,7 +54,7 @@ export default function Snowflakes({ className }: Props) {
   const [flakeRows, setFlakeRows] = useState<FlakeInfo[][]>([]);
   const [parallaxScrollY, setParallaxScrollY] = useState(0);
 
-  const rowHeight = useMemo(() => height / 2, [height]);
+  const rowHeight = useMemo(() => height / 3, [height]);
 
   const addFlakeRow = useCallback(() => {
     if (rowHeight === 0) return;
@@ -165,22 +166,25 @@ export default function Snowflakes({ className }: Props) {
                               (parallaxScrollY - rowStart + height);
 
                       return (
-                        <Image
+                        <animated.div
                           key={`${virtualRow.key}-${index}`}
                           className='absolute will-change-transform'
-                          src={`/snowflake-${type}.png`}
-                          width={80}
-                          height={60}
-                          style={{
-                            opacity,
-                            transform: `
-                          translate(${leftTranslate}px, ${topTranslate}px)
-                          scale(${-(BASE_FLAKE_SIZE * scaleFactor)}%)
-                          rotate(${degrees}deg)
-                          `,
-                          }}
-                          alt='snowflake'
-                        />
+                        >
+                          <Image
+                            src={`/snowflake-${type}.svg`}
+                            width={80}
+                            height={60}
+                            style={{
+                              opacity,
+                              transform: `
+                              translate(${leftTranslate}px, ${topTranslate}px)
+                              scale(${-(BASE_FLAKE_SIZE * scaleFactor)}%)
+                              rotate(${degrees}deg)
+                              `,
+                            }}
+                            alt='snowflake'
+                          />
+                        </animated.div>
                       );
                     },
                   )}

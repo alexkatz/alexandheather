@@ -3,17 +3,27 @@ import bridgeSelfie2 from '../../public/bridgeselfie2.jpeg';
 import happyring1 from '../../public/happyring1.jpeg';
 import happyring2 from '../../public/happyring2.jpeg';
 import Snowflakes from './Snowflakes';
+import SnowflakesSpring from './SnowflakesSpring';
 import { Amatic_SC } from 'next/font/google';
+import { classed } from '@tw-classed/react';
 import { twMerge } from 'tailwind-merge';
 import NavBar from './(nav-bar)/NavBar';
 import Image from 'next/image';
 
 const headerFont = Amatic_SC({ weight: '400', subsets: ['latin'] });
 
+const HEADER_HEIGHT = 2.5;
+
+const Section = classed.section(`pt-[${HEADER_HEIGHT + 1}rem]`);
+const SectionHeader = classed.section(
+  'text-xl pl-4 shadow-black/40 text-shadow',
+);
+
 export default function Home() {
   return (
     <main className='flex flex-col'>
       <Snowflakes className='fixed -z-10 h-[100vh] w-[100vw]' />
+      <SnowflakesSpring className='fixed z-20 h-[100vh] w-[100vw] bg-purple-500' />
       <header className='flex h-[calc(50vh-2.5rem)] flex-col items-center'>
         <div className='flex flex-1 flex-col items-center justify-center'>
           <h1
@@ -44,7 +54,7 @@ export default function Home() {
           </h3>
         </div>
       </header>
-      <NavBar className='sticky top-0 z-10 h-[2.5rem]' />
+      <NavBar className={`h-[${HEADER_HEIGHT}rem] sticky top-0 z-10`} />
 
       <div className='flex h-[50vh] w-full gap-10 p-10'>
         <div className='relative flex-1'>
@@ -75,9 +85,17 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='h-[3000px] w-full text-5xl'>
-        THE REST OF THE WEBSITE LOL
-      </div>
+      <Section id='schedule-section' className='h-[3000px]'>
+        <SectionHeader>Schedule</SectionHeader>
+      </Section>
+
+      <Section id='travel-section' className='h-[3000px]'>
+        travel
+      </Section>
+
+      <Section id='registry-section' className='h-[3000px]'>
+        travel
+      </Section>
     </main>
   );
 }

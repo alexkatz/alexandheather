@@ -7,6 +7,9 @@ dependencies:
   '@tanstack/react-virtual':
     specifier: 3.0.0-beta.54
     version: 3.0.0-beta.54(react@18.2.0)
+  '@tw-classed/react':
+    specifier: ^1.5.0
+    version: 1.5.0(react@18.2.0)
   '@types/node':
     specifier: 20.2.1
     version: 20.2.1
@@ -365,6 +368,19 @@ packages:
 
   /@tanstack/virtual-core@3.0.0-beta.54:
     resolution: {integrity: sha512-jtkwqdP2rY2iCCDVAFuaNBH3fiEi29aTn2RhtIoky8DTTiCdc48plpHHreLwmv1PICJ4AJUUESaq3xa8fZH8+g==}
+    dev: false
+
+  /@tw-classed/core@1.5.0:
+    resolution: {integrity: sha512-j4QdsVkJuUt4xR/4aRLsEB3kFuDkyjxiD0azTbuOSh7zJj3BliDpR4reKV+nYbIj1md90rvuJsHPJ/n/Iv55Lw==}
+    dev: false
+
+  /@tw-classed/react@1.5.0(react@18.2.0):
+    resolution: {integrity: sha512-QxN6Vfb58Lr6dcE5VaMyzJievCo4Fydog9zyGWAGd0raglR6vYIQamFkSM2qVZMWdsVQKpALqiwgjNEfaIGdww==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      '@tw-classed/core': 1.5.0
+      react: 18.2.0
     dev: false
 
   /@types/json5@0.0.29:

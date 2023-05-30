@@ -1,19 +1,15 @@
 'use client';
 
 import { twMerge } from 'tailwind-merge';
-import NavBarItem from './NavBarItem';
+import NavBarItem, { NavItem } from './NavBarItem';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 
-type NavItem = {
-  title: string;
-};
-
 const ITEMS: NavItem[] = [
-  { title: 'SCHEDULE' },
-  { title: 'TRAVEL' },
-  { title: 'REGISTERY' },
-  { title: 'Q & A' },
+  { title: 'SCHEDULE', href: '#schedule-section' },
+  { title: 'TRAVEL', href: '#travel-section' },
+  { title: 'REGISTRY', href: '#registry-section' },
+  { title: 'Q & A', href: '#qa-section' },
 ];
 
 type Props = {
@@ -54,6 +50,7 @@ export default function NavBar({ className }: Props) {
       )}
     >
       <div ref={scoutRef} className='absolute -top-[2px] h-[1px] w-full' />
+
       <animated.div
         className='absolute inset-0 -z-10 bg-white'
         style={{
@@ -61,14 +58,13 @@ export default function NavBar({ className }: Props) {
         }}
       />
 
-      {ITEMS.map(({ title }) => (
+      {ITEMS.map(navItem => (
         <NavBarItem
           className={twMerge(!isStuck && 'text-shadow-sm')}
-          key={title}
+          key={navItem.title}
+          navItem={navItem}
           color={textColor}
-        >
-          {title}
-        </NavBarItem>
+        />
       ))}
     </animated.nav>
   );
