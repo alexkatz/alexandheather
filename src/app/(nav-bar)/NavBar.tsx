@@ -1,22 +1,19 @@
 'use client';
 
 import { twMerge } from 'tailwind-merge';
-import NavBarItem, { NavItem } from './NavBarItem';
-import { useLayoutEffect, useRef, useState } from 'react';
+import NavBarItem from './NavBarItem';
+import { CSSProperties, useLayoutEffect, useRef, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
+import { NAV_ITEM_LIST } from './navItems';
 
-const ITEMS: NavItem[] = [
-  { title: 'SCHEDULE', href: '#schedule-section' },
-  { title: 'TRAVEL', href: '#travel-section' },
-  { title: 'REGISTRY', href: '#registry-section' },
-  { title: 'Q & A', href: '#qa-section' },
-];
+export const HEADER_HEIGHT = 40;
 
 type Props = {
   className?: string;
+  style?: CSSProperties;
 };
 
-export default function NavBar({ className }: Props) {
+export default function NavBar({ className, style }: Props) {
   const scoutRef = useRef<HTMLDivElement>(null);
   const [isStuck, setIsStuck] = useState(false);
 
@@ -30,19 +27,20 @@ export default function NavBar({ className }: Props) {
       observer.observe(scout);
     }
 
-    return () => (scout ? observer.unobserve(scout) : undefined);
+    return observer.disconnect;
   }, []);
 
   const [{ backgroundOpacity, textColor }] = useSpring(
     () => ({
       backgroundOpacity: isStuck ? 1 : 0,
-      textColor: isStuck ? '#000' : '#fff',
+      textColor: isStuck ? '#000' : '#000',
     }),
     [isStuck],
   );
 
   return (
-    <animated.nav
+    <nav
+      style={style}
       className={twMerge(
         'relative flex w-full flex-row items-center justify-center gap-2',
         isStuck && 'shadow-md shadow-black/10',
@@ -52,13 +50,13 @@ export default function NavBar({ className }: Props) {
       <div ref={scoutRef} className='absolute -top-[2px] h-[1px] w-full' />
 
       <animated.div
-        className='absolute inset-0 -z-10 bg-white'
+        className='absolute inset-0 -z-10 bg-white/80 backdrop-blur-md'
         style={{
           opacity: backgroundOpacity,
         }}
       />
 
-      {ITEMS.map(navItem => (
+      {NAV_ITEM_LIST.map(navItem => (
         <NavBarItem
           className={twMerge(!isStuck && 'text-shadow-sm')}
           key={navItem.title}
@@ -66,6 +64,6 @@ export default function NavBar({ className }: Props) {
           color={textColor}
         />
       ))}
-    </animated.nav>
+    </nav>
   );
 }

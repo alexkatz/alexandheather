@@ -4,8 +4,10 @@ import { twMerge } from 'tailwind-merge';
 import { useHover } from '@use-gesture/react';
 import { useSpringValue, animated, AnimatedProps } from '@react-spring/web';
 import { Arimo } from 'next/font/google';
-import Link from 'next/link';
-import { useCallback, MouseEvent } from 'react';
+import { useAtomValue } from 'jotai';
+import { selectedNavItemAtom } from './atoms';
+import { useNavItemOnClick } from './useNavItemOnClick';
+import { AnimatedLink } from '@/utils/AnimatedLink';
 
 const font = Arimo({ weight: '400', subsets: ['latin'] });
 
@@ -20,38 +22,30 @@ type Props = AnimatedProps<{
 }> & { className?: string };
 
 export default function NavBarItem({ navItem, className, color }: Props) {
+  const selectedNavItem = useAtomValue(selectedNavItemAtom);
   const scale = useSpringValue(1);
+
   const bindHover = useHover(({ active }) => {
     scale.start(active ? 1.1 : 1);
   });
 
-  const handleOnClick = useCallback((e: MouseEvent) => {
-    e.preventDefault();
-    const id = e.currentTarget.getAttribute('href')?.split('#').at(1);
-    if (id) {
-      const element = document.getElementById(id);
-      if (element) {
-        window.scrollTo({
-          top: element.offsetTop,
-          behavior: 'smooth',
-        });
-      }
-    }
-  }, []);
+  const handleOnClick = useNavItemOnClick();
 
   return (
-    <Link href={navItem.href} onClick={handleOnClick}>
-      <animated.div
-        className={twMerge(
-          'flex h-full cursor-pointer flex-row items-center justify-center px-2 shadow-black/60',
-          className,
-          font.className,
-        )}
-        style={{ scale, color }}
-        {...bindHover()}
-      >
-        {navItem.title}
-      </animated.div>
-    </Link>
+    <AnimatedLink
+      href={navItem.href}
+      replace
+      onClick={handleOnClick}
+      className={twMerge(
+        'flex h-full cursor-pointer flex-row items-center justify-center px-2',
+        selectedNavItem === navItem && 'underline-offset-3 underline',
+        className,
+        // font.className,
+      )}
+      style={{ scale, color }}
+      {...bindHover()}
+    >
+      {navItem.title}
+    </AnimatedLink>
   );
 }

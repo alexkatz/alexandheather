@@ -1,62 +1,68 @@
+'use client';
+
 import bridgeSelfie1 from '../../public/bridgeselfie1.jpeg';
-import bridgeSelfie2 from '../../public/bridgeselfie2.jpeg';
 import happyring1 from '../../public/happyring1.jpeg';
 import happyring2 from '../../public/happyring2.jpeg';
 import Snowflakes from './Snowflakes';
-import SnowflakesSpring from './SnowflakesSpring';
-import { Amatic_SC } from 'next/font/google';
-import { classed } from '@tw-classed/react';
 import { twMerge } from 'tailwind-merge';
 import NavBar from './(nav-bar)/NavBar';
 import Image from 'next/image';
+import Section from './(section)/Section';
+import { NAV_ITEMS } from './(nav-bar)/navItems';
+import MenuButton from './(nav-bar)/MenuButton';
+import SideMenu from './(nav-bar)/SideMenu';
 
-const headerFont = Amatic_SC({ weight: '400', subsets: ['latin'] });
+// const headerFont = Amatic_SC({ weight: '400', subsets: ['latin'] });
 
-const HEADER_HEIGHT = 2.5;
-
-const Section = classed.section(`pt-[${HEADER_HEIGHT + 1}rem]`);
-const SectionHeader = classed.section(
-  'text-xl pl-4 shadow-black/40 text-shadow',
-);
+const HEADER_HEIGHT = 60;
 
 export default function Home() {
   return (
     <main className='flex flex-col'>
+      <MenuButton className='fixed left-1 top-2 self-start md:hidden' />
+      <SideMenu className='fixed bottom-0 left-0 top-0 z-10 md:hidden' />
+
       <Snowflakes className='fixed -z-10 h-[100vh] w-[100vw]' />
-      <SnowflakesSpring className='fixed z-20 h-[100vh] w-[100vw] bg-purple-500' />
-      <header className='flex h-[calc(50vh-2.5rem)] flex-col items-center'>
-        <div className='flex flex-1 flex-col items-center justify-center'>
-          <h1
-            className={twMerge(
-              headerFont.className,
-              'p-4 text-9xl shadow-black/60 text-shadow-lg short:text-5xl',
-            )}
-          >
-            Alex & Heather
-          </h1>
+      {/* <SnowflakesSpring className='fixed z-20 h-[100vh] w-[100vw] bg-purple-500' /> */}
+      <Section className='min-h-min' navItem={NAV_ITEMS.home}>
+        <header className='flex h-[calc(50vh-2.5rem)] flex-col items-center'>
+          <div className='flex flex-1 flex-col items-center justify-center'>
+            <h1
+              className={twMerge(
+                // headerFont.className,
+                'p-4 text-2xl',
+              )}
+            >
+              Alex & Heather
+            </h1>
 
-          <h2
-            className={twMerge(
-              headerFont.className,
-              'text-6xl shadow-black/60 text-shadow-lg short:text-3xl',
-            )}
-          >
-            February 18th, 2024
-          </h2>
+            <h2
+              className={twMerge(
+                // headerFont.className,
+                'text-xl',
+              )}
+            >
+              February 18th, 2024
+            </h2>
 
-          <h3
-            className={twMerge(
-              headerFont.className,
-              'text-4xl shadow-black/60 text-shadow-lg short:text-xl',
-            )}
-          >
-            Pier Sixty, Manhattan
-          </h3>
-        </div>
-      </header>
-      <NavBar className={`h-[${HEADER_HEIGHT}rem] sticky top-0 z-10`} />
+            <h3
+              className={twMerge(
+                // headerFont.className,
+                'text-xl',
+              )}
+            >
+              Pier Sixty, Manhattan
+            </h3>
+          </div>
+        </header>
+      </Section>
 
-      <div className='flex h-[50vh] w-full gap-10 p-10'>
+      <NavBar
+        style={{ height: HEADER_HEIGHT }}
+        className='sticky top-0 z-10 hidden md:flex'
+      />
+
+      <div className='flex h-[50vh] w-full gap-2 p-10 sm:gap-5 lg:gap-10'>
         <div className='relative flex-1'>
           <Image
             src={happyring1}
@@ -85,17 +91,15 @@ export default function Home() {
         </div>
       </div>
 
-      <Section id='schedule-section' className='h-[3000px]'>
-        <SectionHeader>Schedule</SectionHeader>
+      <Section navItem={NAV_ITEMS.schedule}>
+        <header>Schedule</header>
       </Section>
 
-      <Section id='travel-section' className='h-[3000px]'>
-        travel
-      </Section>
+      <Section navItem={NAV_ITEMS.travel}>some travel stuff</Section>
 
-      <Section id='registry-section' className='h-[3000px]'>
-        travel
-      </Section>
+      <Section navItem={NAV_ITEMS.registry}>some registry stuff</Section>
+
+      <Section navItem={NAV_ITEMS.qa}>some q+a stuff</Section>
     </main>
   );
 }
