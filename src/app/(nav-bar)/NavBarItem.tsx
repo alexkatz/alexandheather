@@ -2,7 +2,7 @@
 
 import { twMerge } from 'tailwind-merge';
 import { useHover } from '@use-gesture/react';
-import { useSpringValue, animated, AnimatedProps } from '@react-spring/web';
+import { useSpringValue, AnimatedProps } from '@react-spring/web';
 import { Arimo } from 'next/font/google';
 import { useAtomValue } from 'jotai';
 import { selectedNavItemAtom } from './atoms';
