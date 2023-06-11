@@ -6,7 +6,7 @@ import { CSSProperties, useLayoutEffect, useRef, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import { NAV_ITEM_LIST } from './navItems';
 
-export const HEADER_HEIGHT = 40;
+export const HEADER_HEIGHT = 60;
 
 type Props = {
   className?: string;
@@ -40,7 +40,7 @@ export default function NavBar({ className, style }: Props) {
 
   return (
     <nav
-      style={style}
+      style={{ ...style, height: HEADER_HEIGHT }}
       className={twMerge(
         'relative flex w-full flex-row items-center justify-center gap-2',
         isStuck && 'shadow-md shadow-black/10',
@@ -50,7 +50,7 @@ export default function NavBar({ className, style }: Props) {
       <div ref={scoutRef} className='absolute -top-[2px] h-[1px] w-full' />
 
       <animated.div
-        className='absolute inset-0 -z-10 bg-white/80 backdrop-blur-md'
+        className='absolute inset-0 -z-10 bg-white/70 backdrop-blur-md'
         style={{
           opacity: backgroundOpacity,
         }}

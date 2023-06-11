@@ -33,7 +33,7 @@ export default function SideMenu({ className }: Props) {
         className,
       )}
     >
-      <div className='absolute inset-0 -z-10 bg-white/30 backdrop-blur-sm' />
+      <div className='absolute inset-0 -z-10 bg-white/70 backdrop-blur-sm' />
       {NAV_ITEM_LIST.map(navItem => (
         <SideMenuItem key={navItem.href} navItem={navItem} />
       ))}

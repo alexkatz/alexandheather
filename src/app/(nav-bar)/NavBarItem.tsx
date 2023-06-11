@@ -33,8 +33,7 @@ export default function NavBarItem({ navItem, className, color }: Props) {
 
   return (
     <AnimatedLink
-      href={navItem.href}
-      replace
+      href={`/${navItem.href}`}
       onClick={handleOnClick}
       className={twMerge(
         'flex h-full cursor-pointer flex-row items-center justify-center px-2',
