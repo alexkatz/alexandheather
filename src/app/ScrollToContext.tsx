@@ -1,7 +1,9 @@
 import { SpringRef } from '@react-spring/web';
 import { PropsWithChildren, createContext, useContext } from 'react';
 
-const ScrollToContext = createContext((() => {}) as SpringRef<{ y: number }>);
+const ScrollToContext = createContext(
+  undefined as unknown as SpringRef<{ y: number }>,
+);
 
 export const useSetScrollY = () => {
   return useContext(ScrollToContext);

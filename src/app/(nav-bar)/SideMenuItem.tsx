@@ -6,6 +6,9 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { isSideMenuOpenAtom, selectedNavItemAtom } from './atoms';
 import { useNavItemOnClick } from './useNavItemOnClick';
 import { AnimatedLink } from '@/utils/AnimatedLink';
+import { Fira_Code } from 'next/font/google';
+
+const font = Fira_Code({ weight: '500', subsets: ['latin'] });
 
 type Props = {
   className?: string;
@@ -35,6 +38,7 @@ export default function SideMenuItem({ className, navItem }: Props) {
       className={twMerge(
         'block cursor-pointer rounded-md p-1 py-2',
         selectedNavItem.href === navItem.href && 'underline underline-offset-4',
+        font.className,
         className,
       )}
     >

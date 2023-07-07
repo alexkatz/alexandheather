@@ -4,8 +4,6 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 240, 250, 255;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,9 +14,4 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-}
-
-.snowflakes {
-  background: linear-gradient(to bottom, rgb(var(--background-end-rgb)))
-    rgb(var(--background-start-rgb));
 }

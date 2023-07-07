@@ -12,11 +12,13 @@ import { NAV_ITEMS } from './(nav-bar)/navItems';
 import MenuButton from './(nav-bar)/MenuButton';
 import SideMenu from './(nav-bar)/SideMenu';
 import Link from 'next/link';
+import { Klee_One, Ruthie } from 'next/font/google';
 import { AnimationResult, SpringValue, useSpring } from '@react-spring/web';
 import ScrollToProvider from './ScrollToContext';
-import { useEffect } from 'react';
+import { useNavItemOnClick } from './(nav-bar)/useNavItemOnClick';
 
-// const headerFont = Amatic_SC({ weight: '400', subsets: ['latin'] });
+const headerFont = Ruthie({ weight: '400', subsets: ['latin'] });
+const subheaderFont = Klee_One({ weight: '600', subsets: ['latin'] });
 
 const HEADER_HEIGHT = 60;
 
@@ -31,11 +33,13 @@ export default function Home() {
     [],
   );
 
+  const handleNavOnClick = useNavItemOnClick(setY);
+
   return (
     <ScrollToProvider setY={setY}>
       <main className='flex flex-col'>
-        <MenuButton className='fixed left-1 top-2 self-start md:hidden' />
-        <SideMenu className='fixed bottom-0 left-0 top-0 z-10 md:hidden' />
+        <MenuButton className='fixed left-1 top-2 self-start md:hidden tall:flex' />
+        <SideMenu className='fixed bottom-0 left-0 top-0 z-10 md:hidden tall:block' />
 
         <Snowflakes className='fixed -z-10 h-[100vh] w-[100vw]' />
         {/* <SnowflakesSpring className='fixed z-20 h-[100vh] w-[100vw] bg-purple-500' /> */}
@@ -44,37 +48,45 @@ export default function Home() {
             <div className='flex flex-1 flex-col items-center justify-center'>
               <h1
                 className={twMerge(
-                  // headerFont.className,
-                  'p-4 text-2xl',
+                  headerFont.className,
+                  'text-[3.5rem]',
+                  'sm:text-[6rem]',
+                  'lg:text-[10rem]',
                 )}
               >
-                Alex & Heather
+                <span>Alex</span>{' '}
+                <span
+                  className={twMerge(
+                    'text-[1.75rem]',
+                    'sm:text-[3rem]',
+                    'lg:text-[5rem]',
+                  )}
+                >
+                  &
+                </span>{' '}
+                <span>Heather</span>
               </h1>
 
               <h2
                 className={twMerge(
-                  // headerFont.className,
-                  'text-xl',
+                  subheaderFont.className,
+                  'flex flex-col',
+                  'text-[0.8rem]',
+                  'sm:text-[1.2rem]',
+                  'lg:text-[2rem]',
+                  'tall:text-[1.2rem]',
                 )}
               >
-                February 18th, 2024
+                <span>February 18th, 2024</span>
+                <span>Pier Sixty, Manhattan</span>
               </h2>
-
-              <h3
-                className={twMerge(
-                  // headerFont.className,
-                  'text-xl',
-                )}
-              >
-                Pier Sixty, Manhattan
-              </h3>
             </div>
           </header>
         </Section>
 
         <NavBar
           style={{ height: HEADER_HEIGHT }}
-          className='sticky top-0 z-10 hidden md:flex'
+          className='sticky top-0 z-10 hidden md:flex tall:hidden'
         />
 
         <div className='flex h-[50vh] w-full gap-2 p-10 sm:gap-5 lg:gap-10'>
@@ -260,7 +272,13 @@ export default function Home() {
 
           <section.p>
             Please refer to the{' '}
-            <Link href={NAV_ITEMS.travel.href}>Travel section</Link>
+            <Link
+              className='underline'
+              onClick={handleNavOnClick}
+              href={NAV_ITEMS.travel.href}
+            >
+              Travel section
+            </Link>
           </section.p>
 
           <section.h3>What is the dress code?</section.h3>

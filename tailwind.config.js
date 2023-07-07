@@ -28,7 +28,7 @@ module.exports = {
         'even-heavy': '0 0 8px 0 rgb(0 0 0 / 0.4)',
       },
       screens: {
-        short: { raw: '(max-height: 660px)' },
+        tall: { raw: '(max-height: 800px)' },
       },
     },
   },

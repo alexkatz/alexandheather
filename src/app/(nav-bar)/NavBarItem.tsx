@@ -3,13 +3,13 @@
 import { twMerge } from 'tailwind-merge';
 import { useHover } from '@use-gesture/react';
 import { useSpringValue, AnimatedProps } from '@react-spring/web';
-import { Arimo } from 'next/font/google';
+import { Fira_Code } from 'next/font/google';
 import { useAtomValue } from 'jotai';
 import { selectedNavItemAtom } from './atoms';
 import { useNavItemOnClick } from './useNavItemOnClick';
 import { AnimatedLink } from '@/utils/AnimatedLink';
 
-const font = Arimo({ weight: '400', subsets: ['latin'] });
+const font = Fira_Code({ weight: '500', subsets: ['latin'] });
 
 export type NavItem = {
   title: string;
@@ -36,10 +36,10 @@ export default function NavBarItem({ navItem, className, color }: Props) {
       href={`/${navItem.href}`}
       onClick={handleOnClick}
       className={twMerge(
-        'flex h-full cursor-pointer flex-row items-center justify-center px-2',
+        'flex h-full cursor-pointer flex-row items-center justify-center px-2 text-[1.3rem]',
         selectedNavItem === navItem && 'underline-offset-3 underline',
+        font.className,
         className,
-        // font.className,
       )}
       style={{ scale, color }}
       {...bindHover()}

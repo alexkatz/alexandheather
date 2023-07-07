@@ -35,7 +35,7 @@ const OPACITY_FACTOR = 2;
 const BASE_FLAKE_SIZE = 100;
 const MIN_SCALE_FACTOR = 10;
 const MAX_SCALE_FACTOR = 100;
-const FLAKES_PER_ROW_FACTOR = 0.4;
+const FLAKES_PER_ROW_FACTOR = 0.8;
 
 const MAX_FLAKE_OPACITY = 30;
 const MIN_FLAKE_OPACITY = 1;
@@ -171,7 +171,7 @@ export default function Snowflakes({ className }: Props) {
                           className='absolute will-change-transform'
                         >
                           <Image
-                            src={`/snowflake-${type}.svg`}
+                            src={`/snowflake-white-${type}.png`}
                             width={80}
                             height={60}
                             style={{

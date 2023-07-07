@@ -12,13 +12,16 @@ import { NavItem } from '../(nav-bar)/NavBarItem';
 import { useSetAtom } from 'jotai';
 import { selectedNavItemAtom } from '../(nav-bar)/atoms';
 import { classed } from '@tw-classed/react';
+import { Mali } from 'next/font/google';
+
+const subheaderFont = Mali({ weight: '700', subsets: ['latin'] });
 
 type Props = ComponentPropsWithoutRef<'section'> & {
   navItem: NavItem;
 };
 
 export const section = {
-  h2: classed.header('text-2xl mb-4'),
+  h2: classed.header(twMerge('text-2xl mb-4', subheaderFont.className)),
   h3: classed.h3('text-lg font-bold mt-2'),
   p: classed.p('mb-2'),
   ul: classed.ul('list-disc list-inside'),
@@ -53,7 +56,7 @@ export default forwardRef(
       <section
         id={navItem.href.substring(1)}
         style={{ paddingTop: HEADER_HEIGHT + 8 }}
-        className={twMerge('flex min-h-[100vh] flex-col p-2', className)}
+        className={twMerge('flex min-h-[80vh] flex-col p-2', className)}
         ref={mergeRefs(ref, sectionRef)}
         {...props}
       />
