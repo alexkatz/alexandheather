@@ -118,7 +118,14 @@ export default function Snowflakes({ className }: Props) {
   }, [addFlakeRow, flakeRows.length, virtualItems]);
 
   return (
-    <div ref={containerRef} className={twMerge('snowflakes', className)}>
+    <div
+      ref={containerRef}
+      className={twMerge(
+        'snowflakes',
+        'bg-gradient-to-t from-slate-400 to-slate-100',
+        className,
+      )}
+    >
       {height > 0 && (
         <div
           ref={listRef}
