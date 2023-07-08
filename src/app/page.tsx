@@ -154,9 +154,13 @@ export default function Home() {
 
           <section.p>
             {'For details, visit '}
-            <Link href='https://www.chelseapiers.com/also-at-the-piers/parking/'>
+            <a
+              target='_blank'
+              className='underline'
+              href='https://www.chelseapiers.com/also-at-the-piers/parking/'
+            >
               https://www.chelseapiers.com/also-at-the-piers/parking/
-            </Link>
+            </a>
           </section.p>
 
           <section.h3>Taxi & Rideshare</section.h3>
@@ -224,9 +228,15 @@ export default function Home() {
 
         <Section navItem={NAV_ITEMS.registry}>
           <section.h2>Registry</section.h2>
-          <section.p>
-            {'visit our registry here: '}
-            <span>{'EXTERNAL REGISTRY LINK'}</span>
+          <section.p className='flex flex-col'>
+            {'Visit our registry at: '}
+            <a
+              target='_blank'
+              className='underline'
+              href='https://www.zola.com/registry/friedmankatzwedding'
+            >
+              https://www.zola.com/registry/friedmankatzwedding
+            </a>
           </section.p>
         </Section>
 
@@ -241,7 +251,7 @@ export default function Home() {
 
           <section.p>
             If your invitation says so. If you want to bring a +1 but we did not
-            indicate such on your invitation, please reach out to us at
+            indicate such on your invitation, please reach out to us at{' '}
             alexandheather20@gmail.com
           </section.p>
 
@@ -315,7 +325,7 @@ export default function Home() {
           <section.p>
             <span>
               If you have any other questions or concerns, please contact
-              Heather and Alex at
+              Heather and Alex at{' '}
             </span>
             <span>alexandheather20@gmail.com</span>
           </section.p>

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   forwardRef,
   ComponentPropsWithoutRef,
@@ -21,7 +23,7 @@ type Props = ComponentPropsWithoutRef<'section'> & {
 };
 
 export const section = {
-  h2: classed.header(twMerge('text-2xl mb-4', subheaderFont.className)),
+  h2: classed.header(twMerge('text-3xl mb-4', subheaderFont.className)),
   h3: classed.h3('text-lg font-bold mt-2'),
   p: classed.p('mb-2'),
   ul: classed.ul('list-disc list-inside'),
@@ -40,9 +42,7 @@ export default forwardRef(
             setSelectedNavItem(navItem);
           }
         },
-        {
-          rootMargin: `-25% 0px -75% 0px`,
-        },
+        { rootMargin: `-25% 0px -75% 0px` },
       );
 
       if (sectionRef.current) {
@@ -56,7 +56,10 @@ export default forwardRef(
       <section
         id={navItem.href.substring(1)}
         style={{ paddingTop: HEADER_HEIGHT + 8 }}
-        className={twMerge('flex min-h-[80vh] flex-col p-2', className)}
+        className={twMerge(
+          'm-auto flex min-h-[100vh] w-10/12 flex-col p-2',
+          className,
+        )}
         ref={mergeRefs(ref, sectionRef)}
         {...props}
       />
