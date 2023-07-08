@@ -1,6 +1,6 @@
 'use client';
 
-import { twMerge } from 'tailwind-merge';
+import { tw } from '@/utils/tw';
 import NavBarItem from './NavBarItem';
 import { CSSProperties, useLayoutEffect, useRef, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
@@ -33,7 +33,7 @@ export default function NavBar({ className, style }: Props) {
   const [{ backgroundOpacity, textColor }] = useSpring(
     () => ({
       backgroundOpacity: isStuck ? 1 : 0,
-      textColor: isStuck ? '#000' : '#000',
+      textColor: isStuck ? 'black' : 'white',
     }),
     [isStuck],
   );
@@ -41,7 +41,7 @@ export default function NavBar({ className, style }: Props) {
   return (
     <nav
       style={{ ...style, height: HEADER_HEIGHT }}
-      className={twMerge(
+      className={tw(
         'relative flex w-full flex-row items-center justify-center gap-2',
         isStuck && 'shadow-md shadow-black/10',
         className,
@@ -58,7 +58,7 @@ export default function NavBar({ className, style }: Props) {
 
       {NAV_ITEM_LIST.map(navItem => (
         <NavBarItem
-          className={twMerge(!isStuck && 'text-shadow-sm')}
+          className={tw(!isStuck && 'text-shadow-sm')}
           key={navItem.title}
           navItem={navItem}
           color={textColor}

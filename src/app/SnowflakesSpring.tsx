@@ -3,7 +3,7 @@
 import { random } from '@/utils/random';
 import { SpringValue, animated, useScroll } from '@react-spring/web';
 import { useCallback, useMemo, useRef } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { tw } from '@/utils/tw';
 import useResizeObserver from 'use-resize-observer';
 
 type UseScrollReturn = ReturnType<typeof useScroll>;
@@ -89,7 +89,7 @@ export default function Snowflakes({ className }: Props) {
   });
 
   return (
-    <div ref={ref} className={twMerge(className)}>
+    <div ref={ref} className={tw(className)}>
       {width != 0 &&
         height != 0 &&
         flakes.map(flake => (

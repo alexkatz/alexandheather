@@ -1,6 +1,6 @@
 'use client';
 
-import { twMerge } from 'tailwind-merge';
+import { tw } from '@/utils/tw';
 import { useHover } from '@use-gesture/react';
 import { useSpringValue, AnimatedProps } from '@react-spring/web';
 import { Fira_Code } from 'next/font/google';
@@ -35,8 +35,8 @@ export default function NavBarItem({ navItem, className, color }: Props) {
     <AnimatedLink
       href={`/${navItem.href}`}
       onClick={handleOnClick}
-      className={twMerge(
-        'flex h-full cursor-pointer flex-row items-center justify-center px-2 text-[1.3rem]',
+      className={tw(
+        'flex h-full cursor-pointer flex-row items-center justify-center px-2 text-[1rem] shadow-black',
         selectedNavItem === navItem && 'underline-offset-3 underline',
         font.className,
         className,

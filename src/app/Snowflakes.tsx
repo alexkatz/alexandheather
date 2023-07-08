@@ -3,20 +3,26 @@
 // https://www.misha.studio/snowflaker/
 
 import Image from 'next/image';
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { random } from '@/utils/random';
 import { useDebouncedCallback } from 'use-debounce';
-import { twMerge } from 'tailwind-merge';
-import { animated } from '@react-spring/web';
+import { tw } from '@/utils/tw';
+import { SpringValue, animated, useScroll } from '@react-spring/web';
+
+const AnimatedImage = animated(Image);
+
+type UseScrollReturn = ReturnType<typeof useScroll>;
+type OnChangeProps = {
+  value: {
+    [K in keyof UseScrollReturn]: UseScrollReturn[K] extends SpringValue<
+      infer T
+    >
+      ? T
+      : never;
+  };
+};
 
 type FlakeInfo = {
   scaleFactor: number;
@@ -27,21 +33,23 @@ type FlakeInfo = {
   type: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 };
 
-const OVERSCAN = 1;
+const OVERSCAN = 2;
 
 const SCROLL_FACTOR = 0.5;
-const OPACITY_FACTOR = 2;
+const OPACITY_SCROLL_FACTOR = 3;
 
-const BASE_FLAKE_SIZE = 100;
 const MIN_SCALE_FACTOR = 10;
 const MAX_SCALE_FACTOR = 100;
-const FLAKES_PER_ROW_FACTOR = 0.5;
+const FLAKES_PER_ROW_FACTOR = 0.3;
 
-const MAX_FLAKE_OPACITY = 30;
-const MIN_FLAKE_OPACITY = 1;
+const MAX_FLAKE_OPACITY = 50;
+const MIN_FLAKE_OPACITY = 20;
 
-const WIND_AMPLITUDE = 50;
+const WIND_AMPLITUDE = 100;
 const WIND_FREQUENCY = 0.001;
+
+const getParallaxScrollY = (scrollY: number) =>
+  Math.round(scrollY * SCROLL_FACTOR);
 
 type Props = {
   className?: string;
@@ -52,9 +60,10 @@ export default function Snowflakes({ className }: Props) {
   const listRef = useRef<HTMLDivElement>(null);
   const [flakesPerRow, setFlakesPerRow] = useState(0);
   const [flakeRows, setFlakeRows] = useState<FlakeInfo[][]>([]);
-  const [parallaxScrollY, setParallaxScrollY] = useState(0);
 
-  const rowHeight = useMemo(() => height / 3, [height]);
+  const baseFlakeSize = useMemo(() => Math.min(width / 4, 200), [width]);
+
+  const rowHeight = useMemo(() => height / 2, [height]);
 
   const addFlakeRow = useCallback(() => {
     if (rowHeight === 0) return;
@@ -65,13 +74,13 @@ export default function Snowflakes({ className }: Props) {
         .map<FlakeInfo>(() => ({
           scaleFactor: random(MIN_SCALE_FACTOR, MAX_SCALE_FACTOR) / 100,
           top: random(rowHeight, 0),
-          left: random(0, width - BASE_FLAKE_SIZE),
+          left: random(0, width - baseFlakeSize),
           degrees: random(0, 45),
           opacity: random(MIN_FLAKE_OPACITY, MAX_FLAKE_OPACITY) / 100,
           type: random(1, 9).toString() as FlakeInfo['type'],
         })),
     ]);
-  }, [flakesPerRow, rowHeight, width]);
+  }, [baseFlakeSize, flakesPerRow, rowHeight, width]);
 
   const rowVirtualizer = useVirtualizer({
     count: flakeRows.length + 1,
@@ -82,24 +91,20 @@ export default function Snowflakes({ className }: Props) {
 
   const virtualItems = rowVirtualizer.getVirtualItems();
 
-  useLayoutEffect(() => {
-    const onScroll = () => {
-      const parallaxScroll = Math.round(window.scrollY * SCROLL_FACTOR);
-      setParallaxScrollY(parallaxScroll);
-      listRef.current?.scroll({ top: parallaxScroll });
-    };
-
-    window.addEventListener('scroll', onScroll, false);
-    return () => window.removeEventListener('scroll', onScroll, false);
-  }, []);
+  const { scrollY } = useScroll({
+    onChange({ value }: OnChangeProps) {
+      const parallaxScroll = getParallaxScrollY(value.scrollY);
+      if (listRef.current) listRef.current.scrollTop = parallaxScroll;
+    },
+  });
 
   const debouncedResetFlakes = useDebouncedCallback(
     useCallback(() => {
       setFlakesPerRow(
-        Math.ceil(width / (BASE_FLAKE_SIZE * FLAKES_PER_ROW_FACTOR)),
+        Math.ceil(width / (baseFlakeSize * FLAKES_PER_ROW_FACTOR)),
       );
       setFlakeRows([]);
-    }, [width]),
+    }, [baseFlakeSize, width]),
     300,
   );
 
@@ -120,9 +125,9 @@ export default function Snowflakes({ className }: Props) {
   return (
     <div
       ref={containerRef}
-      className={twMerge(
+      className={tw(
         'snowflakes',
-        'bg-gradient-to-t from-slate-400 to-slate-100',
+        'bg-gradient-to-t from-white to-sky-600',
         className,
       )}
     >
@@ -139,11 +144,10 @@ export default function Snowflakes({ className }: Props) {
             {virtualItems.map(virtualRow => {
               const flakeInfos = flakeRows[virtualRow.index];
               const rowStart = virtualRow.start;
-              const bottomStart = height + parallaxScrollY;
               return !flakeInfos ? null : (
                 <div
                   key={virtualRow.key}
-                  className='absolute will-change-transform'
+                  className='absolute'
                   style={{
                     top: 0,
                     left: 0,
@@ -156,44 +160,45 @@ export default function Snowflakes({ className }: Props) {
                     (
                       { type, scaleFactor, left, top, opacity, degrees },
                       index,
-                    ) => {
-                      const leftTranslate =
-                        left +
-                        Math.sin(
-                          parallaxScrollY * WIND_FREQUENCY - rowStart + height,
-                        ) *
-                          WIND_AMPLITUDE;
-
-                      const topTranslate =
-                        rowStart >= bottomStart
-                          ? top
-                          : top -
-                            opacity *
-                              OPACITY_FACTOR *
-                              (parallaxScrollY - rowStart + height);
-
-                      return (
-                        <animated.div
-                          key={`${virtualRow.key}-${index}`}
-                          className='absolute will-change-transform'
-                        >
-                          <Image
-                            src={`/snowflake-${type}.svg`}
-                            width={80}
-                            height={60}
-                            style={{
-                              opacity,
-                              transform: `
-                              translate(${leftTranslate}px, ${topTranslate}px)
-                              scale(${-(BASE_FLAKE_SIZE * scaleFactor)}%)
-                              rotate(${degrees}deg)
-                              `,
-                            }}
-                            alt='snowflake'
-                          />
-                        </animated.div>
-                      );
-                    },
+                    ) => (
+                      <AnimatedImage
+                        key={`${virtualRow.key}-${index}`}
+                        className='absolute will-change-transform'
+                        style={{
+                          translateX: scrollY.to(value => {
+                            const parallaxScroll = getParallaxScrollY(value);
+                            return (
+                              left +
+                              Math.sin(
+                                parallaxScroll * WIND_FREQUENCY -
+                                  rowStart +
+                                  height,
+                              ) *
+                                WIND_AMPLITUDE
+                            );
+                          }),
+                          translateY: scrollY.to(value => {
+                            const parallaxScroll = getParallaxScrollY(value);
+                            const bottomStart = height + parallaxScroll;
+                            return rowStart - rowHeight * 2 >= bottomStart
+                              ? top
+                              : top -
+                                  opacity *
+                                    OPACITY_SCROLL_FACTOR *
+                                    (parallaxScroll -
+                                      (rowStart - rowHeight * 2) +
+                                      height);
+                          }),
+                          opacity,
+                          scale: `${-(baseFlakeSize * scaleFactor)}%`,
+                          rotate: `${degrees}deg`,
+                        }}
+                        src={`/snowflake-white-${type}.png`}
+                        width={80}
+                        height={60}
+                        alt='snowflake'
+                      />
+                    ),
                   )}
                 </div>
               );

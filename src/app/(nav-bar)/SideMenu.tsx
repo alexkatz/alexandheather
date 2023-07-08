@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import { twMerge } from 'tailwind-merge';
+import { tw } from '@/utils/tw';
 import { isSideMenuOpenAtom } from './atoms';
 import { animated, useSpring } from '@react-spring/web';
 import useResizeObserver from 'use-resize-observer';
@@ -28,7 +28,7 @@ export default function SideMenu({ className }: Props) {
         left: -width,
         translateX: left,
       }}
-      className={twMerge(
+      className={tw(
         'relative min-w-[12rem] p-2 pt-12 shadow-xl',
         className,
       )}

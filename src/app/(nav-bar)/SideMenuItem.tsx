@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { tw } from '@/utils/tw';
 import { NavItem } from './NavBarItem';
 import { useSpringValue } from '@react-spring/web';
 import { useHover } from '@use-gesture/react';
@@ -8,7 +8,7 @@ import { useNavItemOnClick } from './useNavItemOnClick';
 import { AnimatedLink } from '@/utils/AnimatedLink';
 import { Fira_Code } from 'next/font/google';
 
-const font = Fira_Code({ weight: '500', subsets: ['latin'] });
+const font = Fira_Code({ weight: '400', subsets: ['latin'] });
 
 type Props = {
   className?: string;
@@ -35,7 +35,7 @@ export default function SideMenuItem({ className, navItem }: Props) {
         setIsMenuOpen(false);
       }}
       style={{ scale }}
-      className={twMerge(
+      className={tw(
         'block cursor-pointer rounded-md p-1 py-2',
         selectedNavItem.href === navItem.href && 'underline underline-offset-4',
         font.className,

@@ -7,7 +7,7 @@ import {
 import { useHover } from '@use-gesture/react';
 import { useAtom } from 'jotai';
 import { ComponentPropsWithoutRef, Ref, forwardRef } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { tw } from '@/utils/tw';
 import { isSideMenuOpenAtom } from './atoms';
 
 type Props = AnimatedProps<ComponentPropsWithoutRef<'button'>> & {
@@ -46,7 +46,7 @@ export default forwardRef(
         aria-label='Menu'
         style={{ scale }}
         {...bindHover()}
-        className={twMerge(
+        className={tw(
           'relative z-20 overflow-hidden rounded-md p-1',
           className,
         )}

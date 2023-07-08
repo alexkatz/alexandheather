@@ -4,7 +4,6 @@ import bridgeSelfie1 from '../../public/bridgeselfie1.jpeg';
 import happyring1 from '../../public/happyring1.jpeg';
 import happyring2 from '../../public/happyring2.jpeg';
 import Snowflakes from './Snowflakes';
-import { twMerge } from 'tailwind-merge';
 import NavBar from './(nav-bar)/NavBar';
 import Image from 'next/image';
 import Section, { section } from './(section)/Section';
@@ -12,13 +11,14 @@ import { NAV_ITEMS } from './(nav-bar)/navItems';
 import MenuButton from './(nav-bar)/MenuButton';
 import SideMenu from './(nav-bar)/SideMenu';
 import Link from 'next/link';
-import { Klee_One, Ruthie } from 'next/font/google';
+import { Fira_Code, Ruthie } from 'next/font/google';
 import { AnimationResult, SpringValue, useSpring } from '@react-spring/web';
 import ScrollToProvider from './ScrollToContext';
 import { useNavItemOnClick } from './(nav-bar)/useNavItemOnClick';
+import { tw } from '@/utils/tw';
 
 const headerFont = Ruthie({ weight: '400', subsets: ['latin'] });
-const subheaderFont = Klee_One({ weight: '600', subsets: ['latin'] });
+const subheaderFont = Fira_Code({ weight: '300', subsets: ['latin'] });
 
 const HEADER_HEIGHT = 60;
 
@@ -42,21 +42,21 @@ export default function Home() {
         <SideMenu className='fixed bottom-0 left-0 top-0 z-10 md:hidden tall:block' />
 
         <Snowflakes className='fixed -z-10 h-[100vh] w-[100vw]' />
-        {/* <SnowflakesSpring className='fixed z-20 h-[100vh] w-[100vw] bg-purple-500' /> */}
-        <Section className='min-h-min' navItem={NAV_ITEMS.home}>
-          <header className='flex h-[calc(50vh-2.5rem)] flex-col items-center'>
+        <Section className='min-h-min w-full p-0' navItem={NAV_ITEMS.home}>
+          <header className='flex flex-col items-center pb-8 pt-10'>
             <div className='flex flex-1 flex-col items-center justify-center'>
               <h1
-                className={twMerge(
+                className={tw(
                   headerFont.className,
-                  'text-[3.5rem]',
-                  'sm:text-[6rem]',
-                  'lg:text-[10rem]',
+                  'shadow-black text-shadow-sm',
+                  'text-white',
+                  'text-[15vw]',
+                  'leading-none',
                 )}
               >
                 <span>Alex</span>{' '}
                 <span
-                  className={twMerge(
+                  className={tw(
                     'text-[1.75rem]',
                     'sm:text-[3rem]',
                     'lg:text-[5rem]',
@@ -68,17 +68,18 @@ export default function Home() {
               </h1>
 
               <h2
-                className={twMerge(
+                className={tw(
                   subheaderFont.className,
-                  'flex flex-col',
-                  'text-[0.8rem]',
-                  'sm:text-[1.2rem]',
-                  'lg:text-[2rem]',
-                  'tall:text-[1.2rem]',
+                  'relative -top-[0.5rem]',
+                  'w-full',
+                  'flex justify-center gap-5',
+                  'text-[min(2vw,1.4rem)]',
+                  'text-white shadow-black text-shadow-sm',
                 )}
               >
-                <span>February 18th, 2024</span>
-                <span>Pier Sixty, Manhattan</span>
+                <span>FEBRUARY 18, 2024</span>
+                <span>•</span>
+                <span>PIER SIXTY, MANHATTAN</span>
               </h2>
             </div>
           </header>
@@ -119,26 +120,26 @@ export default function Home() {
         </div>
 
         <Section navItem={NAV_ITEMS.schedule}>
-          <section.h2>Schedule</section.h2>
-          <section.p>Sunday, February 18th, 2024</section.p>
+          <section.h2>{NAV_ITEMS.schedule.title}</section.h2>
+          <section.p>{'Sunday, February 18th, 2024'}</section.p>
           <section.p>{'Ceremony at 4pm'}</section.p>
           <section.p>{'Reception to follow'}</section.p>
           <section.p>{'Cocktail Attire'}</section.p>
           <section.p>{'Pier Sixty'}</section.p>
           <section.p>{'60 Chelsea Piers, New York, NY 10011'}</section.p>
-          <iframe
-            src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.698364337545!2d-74.0107728!3d40.7466623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259c7dace3e8d%3A0xb21e63fb78aa793e!2sPier%20Sixty!5e0!3m2!1sen!2sus!4v1686501696537!5m2!1sen!2sus'
-            width='vw100'
-            height='450'
-            style={{ border: 0 }}
-            allowFullScreen={false}
-            loading='lazy'
-            referrerPolicy='no-referrer-when-downgrade'
-          />
+          {/* <iframe */}
+          {/*   src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.698364337545!2d-74.0107728!3d40.7466623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259c7dace3e8d%3A0xb21e63fb78aa793e!2sPier%20Sixty!5e0!3m2!1sen!2sus!4v1686501696537!5m2!1sen!2sus' */}
+          {/*   width='vw100' */}
+          {/*   height='450' */}
+          {/*   style={{ border: 0 }} */}
+          {/*   allowFullScreen={false} */}
+          {/*   loading='lazy' */}
+          {/*   referrerPolicy='no-referrer-when-downgrade' */}
+          {/* /> */}
         </Section>
 
         <Section navItem={NAV_ITEMS.travel}>
-          <section.h2>Travel</section.h2>
+          <section.h2>{NAV_ITEMS.travel.title}</section.h2>
 
           <section.p>
             Pier Sixty is at the end of Pier 60, the central pier at Chelsea
@@ -152,7 +153,7 @@ export default function Home() {
             second right into Pier 60. Chelsea Piers parking rates will apply.
           </section.p>
 
-          <section.p>
+          <section.p className='break-all'>
             {'For details, visit '}
             <a
               target='_blank'
@@ -227,8 +228,8 @@ export default function Home() {
         </Section>
 
         <Section navItem={NAV_ITEMS.registry}>
-          <section.h2>Registry</section.h2>
-          <section.p className='flex flex-col'>
+          <section.h2>{NAV_ITEMS.registry.title}</section.h2>
+          <section.p className='flex flex-col break-all'>
             {'Visit our registry at: '}
             <a
               target='_blank'
@@ -241,7 +242,7 @@ export default function Home() {
         </Section>
 
         <Section navItem={NAV_ITEMS.qa}>
-          <section.h2>{'Q&A'}</section.h2>
+          <section.h2>{NAV_ITEMS.qa.title}</section.h2>
 
           <section.h3>Will I be receiving a formal invitation?</section.h3>
 
