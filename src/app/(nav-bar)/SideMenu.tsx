@@ -28,12 +28,9 @@ export default function SideMenu({ className }: Props) {
         left: -width,
         translateX: left,
       }}
-      className={tw(
-        'relative min-w-[12rem] p-2 pt-12 shadow-xl',
-        className,
-      )}
+      className={tw('relative min-w-[12rem] p-2 pt-12 shadow-xl', className)}
     >
-      <div className='absolute inset-0 -z-10 bg-white/70 backdrop-blur-sm' />
+      <div className='absolute inset-0 -z-10 bg-black/70 backdrop-blur-sm' />
       {NAV_ITEM_LIST.map(navItem => (
         <SideMenuItem key={navItem.href} navItem={navItem} />
       ))}

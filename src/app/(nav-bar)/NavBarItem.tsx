@@ -36,7 +36,7 @@ export default function NavBarItem({ navItem, className, color }: Props) {
       href={`/${navItem.href}`}
       onClick={handleOnClick}
       className={tw(
-        'flex h-full cursor-pointer flex-row items-center justify-center px-2 text-[1rem] shadow-black',
+        'flex h-full cursor-pointer flex-row items-center justify-center px-2 text-[1rem]',
         selectedNavItem === navItem && 'underline-offset-3 underline',
         font.className,
         className,

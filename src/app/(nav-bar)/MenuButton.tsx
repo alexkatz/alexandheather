@@ -53,12 +53,14 @@ export default forwardRef(
         ref={ref}
       >
         {!isOpen && (
-          <div className='absolute inset-0 -z-10 bg-white/30 backdrop-blur-sm' />
+          <div className='absolute inset-0 -z-10 bg-black/70 backdrop-blur-sm' />
         )}
         <svg
           onClick={() => setIsOpen(prev => !prev)}
           width='40'
           height='32'
+          stroke='white'
+          fill='white'
           viewBox='0 0 44 44'
           xmlns='http://www.w3.org/2000/svg'
         >

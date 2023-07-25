@@ -30,10 +30,9 @@ export default function NavBar({ className, style }: Props) {
     return observer.disconnect;
   }, []);
 
-  const [{ backgroundOpacity, textColor }] = useSpring(
+  const [{ backgroundOpacity }] = useSpring(
     () => ({
       backgroundOpacity: isStuck ? 1 : 0,
-      textColor: isStuck ? 'black' : 'white',
     }),
     [isStuck],
   );
@@ -42,27 +41,19 @@ export default function NavBar({ className, style }: Props) {
     <nav
       style={{ ...style, height: HEADER_HEIGHT }}
       className={tw(
-        'relative flex w-full flex-row items-center justify-center gap-2',
-        isStuck && 'shadow-md shadow-black/10',
+        'relative flex w-full flex-row items-center justify-center gap-2 text-white',
         className,
       )}
     >
       <div ref={scoutRef} className='absolute -top-[2px] h-[1px] w-full' />
 
       <animated.div
-        className='absolute inset-0 -z-10 bg-white/70 backdrop-blur-md'
-        style={{
-          opacity: backgroundOpacity,
-        }}
+        className='absolute inset-0 -z-10 bg-black/70 backdrop-blur-md'
+        style={{ opacity: backgroundOpacity }}
       />
 
       {NAV_ITEM_LIST.map(navItem => (
-        <NavBarItem
-          className={tw(!isStuck && 'text-shadow-sm')}
-          key={navItem.title}
-          navItem={navItem}
-          color={textColor}
-        />
+        <NavBarItem key={navItem.title} navItem={navItem} />
       ))}
     </nav>
   );

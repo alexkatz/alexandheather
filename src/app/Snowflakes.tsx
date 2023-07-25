@@ -42,7 +42,7 @@ const MIN_SCALE_FACTOR = 10;
 const MAX_SCALE_FACTOR = 100;
 const FLAKES_PER_ROW_FACTOR = 0.3;
 
-const MAX_FLAKE_OPACITY = 50;
+const MAX_FLAKE_OPACITY = 30;
 const MIN_FLAKE_OPACITY = 20;
 
 const WIND_AMPLITUDE = 100;
@@ -61,7 +61,7 @@ export default function Snowflakes({ className }: Props) {
   const [flakesPerRow, setFlakesPerRow] = useState(0);
   const [flakeRows, setFlakeRows] = useState<FlakeInfo[][]>([]);
 
-  const baseFlakeSize = useMemo(() => Math.min(width / 4, 200), [width]);
+  const baseFlakeSize = useMemo(() => Math.min(width / 4, 100), [width]);
 
   const rowHeight = useMemo(() => height / 2, [height]);
 
@@ -123,14 +123,7 @@ export default function Snowflakes({ className }: Props) {
   }, [addFlakeRow, flakeRows.length, virtualItems]);
 
   return (
-    <div
-      ref={containerRef}
-      className={tw(
-        'snowflakes',
-        'bg-gradient-to-t from-white to-sky-600',
-        className,
-      )}
-    >
+    <div ref={containerRef} className={tw('snowflakes bg-black', className)}>
       {height > 0 && (
         <div
           ref={listRef}

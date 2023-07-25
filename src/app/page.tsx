@@ -1,8 +1,6 @@
 'use client';
 
-import bridgeSelfie1 from '../../public/bridgeselfie1.jpeg';
-import happyring1 from '../../public/happyring1.jpeg';
-import happyring2 from '../../public/happyring2.jpeg';
+import silhouette from '../../public/silhouette_landing.jpg';
 import Snowflakes from './Snowflakes';
 import NavBar from './(nav-bar)/NavBar';
 import Image from 'next/image';
@@ -48,7 +46,6 @@ export default function Home() {
               <h1
                 className={tw(
                   headerFont.className,
-                  'shadow-black text-shadow-sm',
                   'text-white',
                   'text-[15vw]',
                   'leading-none',
@@ -70,11 +67,10 @@ export default function Home() {
               <h2
                 className={tw(
                   subheaderFont.className,
-                  'relative -top-[0.5rem]',
-                  'w-full',
-                  'flex justify-center gap-5',
-                  'text-[min(2vw,1.4rem)]',
-                  'text-white shadow-black text-shadow-sm',
+                  'relative md:-top-[0.5rem]',
+                  'w-full gap-1',
+                  'flex justify-center md:gap-5',
+                  'text-[max(2vw,0.7rem)]',
                 )}
               >
                 <span>FEBRUARY 18, 2024</span>
@@ -85,38 +81,21 @@ export default function Home() {
           </header>
         </Section>
 
-        <NavBar
-          style={{ height: HEADER_HEIGHT }}
-          className='sticky top-0 z-10 hidden md:flex tall:hidden'
-        />
+        <NavBar className='sticky top-0 z-10 hidden md:flex tall:hidden' />
 
-        <div className='flex h-[50vh] w-full gap-2 p-10 sm:gap-5 lg:gap-10'>
-          <div className='relative flex-1'>
-            <Image
-              src={happyring1}
-              alt='Heather smiling and showing off her engagement ring'
-              className='object-contain'
-              fill
-            />
-          </div>
-
-          <div className='relative flex-1'>
-            <Image
-              src={bridgeSelfie1}
-              alt='Heather and Alex smiling in front of a wooden covered bridge'
-              className='object-contain'
-              fill
-            />
-          </div>
-
-          <div className='relative flex-1'>
-            <Image
-              src={happyring2}
-              alt='Heather showing off her engagement ring again'
-              className='object-contain'
-              fill
-            />
-          </div>
+        <div
+          className={tw(
+            'relative mx-5 flex h-[50vh] gap-2 overflow-hidden',
+            'md:m-auto md:w-2/3',
+            'border-2 border-solid border-white',
+          )}
+        >
+          <Image
+            fill
+            className='object-cover'
+            src={silhouette}
+            alt='Alex and Heather'
+          />
         </div>
 
         <Section navItem={NAV_ITEMS.schedule}>
@@ -127,15 +106,14 @@ export default function Home() {
           <section.p>{'Cocktail Attire'}</section.p>
           <section.p>{'Pier Sixty'}</section.p>
           <section.p>{'60 Chelsea Piers, New York, NY 10011'}</section.p>
-          {/* <iframe */}
-          {/*   src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.698364337545!2d-74.0107728!3d40.7466623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259c7dace3e8d%3A0xb21e63fb78aa793e!2sPier%20Sixty!5e0!3m2!1sen!2sus!4v1686501696537!5m2!1sen!2sus' */}
-          {/*   width='vw100' */}
-          {/*   height='450' */}
-          {/*   style={{ border: 0 }} */}
-          {/*   allowFullScreen={false} */}
-          {/*   loading='lazy' */}
-          {/*   referrerPolicy='no-referrer-when-downgrade' */}
-          {/* /> */}
+          <iframe
+            src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.698364337545!2d-74.0107728!3d40.7466623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259c7dace3e8d%3A0xb21e63fb78aa793e!2sPier%20Sixty!5e0!3m2!1sen!2sus!4v1686501696537!5m2!1sen!2sus'
+            width='vw100'
+            height='450'
+            allowFullScreen={false}
+            loading='lazy'
+            referrerPolicy='no-referrer-when-downgrade'
+          />
         </Section>
 
         <Section navItem={NAV_ITEMS.travel}>
@@ -224,6 +202,12 @@ export default function Home() {
 
           <section.h3>Hotel Blocks</section.h3>
 
+          <section.p>Coming soon...</section.p>
+        </Section>
+
+        <Section navItem={NAV_ITEMS.gallery}>
+          <section.h2>{NAV_ITEMS.gallery.title}</section.h2>
+          <div className='flex flex-wrap gap-2'></div>
           <section.p>Coming soon...</section.p>
         </Section>
 
