@@ -307,11 +307,12 @@ export default function Home() {
             Please indicate any food allergies or preferences on your RSVP!
           </section.p>
 
+          <section.h3>
+            What should I do if I have any other questions?
+          </section.h3>
+
           <section.p>
-            <span>
-              If you have any other questions or concerns, please contact
-              Heather and Alex at{' '}
-            </span>
+            <span>Please contact Heather and Alex at </span>
             <span>alexandheather20@gmail.com</span>
           </section.p>
         </Section>
