@@ -1,6 +1,6 @@
 'use client';
 
-import silhouette from '../../public/silhouette_landing.jpg';
+import silhouette from '../../public/gallery-9.jpg';
 import Snowflakes from './Snowflakes';
 import NavBar from './(nav-bar)/NavBar';
 import Image from 'next/image';
@@ -207,8 +207,22 @@ export default function Home() {
 
         <Section navItem={NAV_ITEMS.gallery}>
           <section.h2>{NAV_ITEMS.gallery.title}</section.h2>
-          <div className='flex flex-wrap gap-2'></div>
-          <section.p>Coming soon...</section.p>
+          <div className='grid gap-2 md:grid-cols-2'>
+            {[...Array(12).fill(null)].map((_, i) => (
+              <div
+                key={i}
+                className='relative aspect-[1.5] border-2 border-solid border-white'
+              >
+                <Image
+                  key={i}
+                  src={`/gallery-${i + 1}.jpg`}
+                  alt={`gallery-${i + 1}`}
+                  className='object-cover'
+                  fill
+                />
+              </div>
+            ))}
+          </div>
         </Section>
 
         <Section navItem={NAV_ITEMS.registry}>
