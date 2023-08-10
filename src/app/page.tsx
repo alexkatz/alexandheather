@@ -18,8 +18,6 @@ import { tw } from '@/utils/tw';
 const headerFont = Ruthie({ weight: '400', subsets: ['latin'] });
 const subheaderFont = Fira_Code({ weight: '300', subsets: ['latin'] });
 
-const HEADER_HEIGHT = 60;
-
 export default function Home() {
   const [, setY] = useSpring(
     () => ({
@@ -100,12 +98,19 @@ export default function Home() {
 
         <Section navItem={NAV_ITEMS.schedule}>
           <section.h2>{NAV_ITEMS.schedule.title}</section.h2>
+
+          <section.h3>Date</section.h3>
           <section.p>{'Sunday, February 18th, 2024'}</section.p>
+
+          <section.h3>Time</section.h3>
           <section.p>{'Ceremony at 4pm'}</section.p>
-          <section.p>{'Reception to follow'}</section.p>
-          <section.p>{'Cocktail Attire'}</section.p>
+
+          <section.h3>Place</section.h3>
           <section.p>{'Pier Sixty'}</section.p>
           <section.p>{'60 Chelsea Piers, New York, NY 10011'}</section.p>
+
+          <section.h3>Dress</section.h3>
+          <section.p>{'Cocktail Attire'}</section.p>
           <iframe
             src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.698364337545!2d-74.0107728!3d40.7466623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259c7dace3e8d%3A0xb21e63fb78aa793e!2sPier%20Sixty!5e0!3m2!1sen!2sus!4v1686501696537!5m2!1sen!2sus'
             width='vw100'
@@ -203,6 +208,26 @@ export default function Home() {
           <section.h3>Hotel Blocks</section.h3>
 
           <section.p>Coming soon...</section.p>
+        </Section>
+
+        <Section navItem={NAV_ITEMS.engagement}>
+          <section.h2>{NAV_ITEMS.engagement.title}</section.h2>
+          <div className='grid gap-2 md:grid-cols-2'>
+            {[...Array(12).fill(null)].map((_, i) => (
+              <div
+                key={i}
+                className='relative aspect-[1.5] border-2 border-solid border-white'
+              >
+                <Image
+                  key={i}
+                  src={`/engagement-${i + 1}.jpg`}
+                  alt={`engagement-${i + 1}`}
+                  className='object-cover'
+                  fill
+                />
+              </div>
+            ))}
+          </div>
         </Section>
 
         <Section navItem={NAV_ITEMS.gallery}>

@@ -25,7 +25,7 @@ type Props = ComponentPropsWithoutRef<'section'> & {
 
 export const section = {
   h2: classed.header(
-    'text-[2rem] mb-4 text-white shadow-black text-shadow-sm',
+    'text-[2.5rem] text-white shadow-black text-shadow-sm',
     subheaderFont.className,
   ),
   h3: classed.h3('text-lg font-bold mt-2'),
