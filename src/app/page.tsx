@@ -208,7 +208,77 @@ export default function Home() {
 
           <section.h3>Hotel Blocks</section.h3>
 
-          <section.p>Coming soon...</section.p>
+          <section.p>
+            For your convenience, we have reserved blocks of rooms at the
+            following hotels. Please book by January 17, 2024 to receive the
+            discounted rates.
+          </section.p>
+
+          <section.p>
+            <span className='text-2xl font-thin'>INNSiDE By Meliã </span>
+            <span className='text-sm italic opacity-60'>
+              (About a 25 minute walk from the venue)
+            </span>
+            <a
+              className='block text-lg'
+              target='_blank'
+              href='https://goo.gl/maps/HQaBGcNGUmUcH4Zo9'
+            >
+              132 West 27th Street New York, NY 10001
+            </a>
+
+            <section.ul>
+              <section.li>Queen Bed - $179/night + taxes and fees</section.li>
+
+              <section.li>
+                Two Double Beds - $199/night + taxes and fees
+              </section.li>
+
+              <a
+                target='_blank'
+                className='underline'
+                href='https://sites.melia.com/en/events/innside-new-york-nomad/HEATHER-FRIEDMAN---ALEXANDER-KATZ---WEDDING-BLOCK-FEB-2024.html?author=true'
+              >
+                Click here to book
+              </a>
+            </section.ul>
+          </section.p>
+
+          <section.p>
+            <span className='text-2xl font-thin'>Dream Downtown </span>
+            <span className='text-sm italic opacity-60'>
+              (About a 10 minute walk from the venue)
+            </span>
+            <a
+              target='_blank'
+              className='block text-lg'
+              href='https://goo.gl/maps/wfZqtpnCLrxxCJg96'
+            >
+              355 West 16th Street New York, NY 10011
+            </a>
+            <section.ul>
+              <section.li>
+                King or Queen Bed - $319/night + taxes and fees
+              </section.li>
+
+              <section.li>
+                Two Double Beds - $349/night + taxes and fees
+              </section.li>
+
+              <a
+                target='_blank'
+                className='underline'
+                href='https://bit.ly/FriedKatz2024'
+              >
+                Click here to book
+              </a>
+            </section.ul>
+          </section.p>
+
+          <section.p className='mt-4'>
+            There are also countless other hotels in the area. Feel free to book
+            wherever you&apos;d like!
+          </section.p>
         </Section>
 
         <Section navItem={NAV_ITEMS.engagement}>
