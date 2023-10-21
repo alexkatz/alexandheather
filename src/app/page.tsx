@@ -39,13 +39,13 @@ export default function Home() {
 
         <Snowflakes className='fixed -z-10 h-[100vh] w-[100vw]' />
         <Section className='min-h-min w-full p-0' navItem={NAV_ITEMS.home}>
-          <header className='flex flex-col items-center pb-8 pt-10'>
+          <header className='flex flex-col items-center pt-10'>
             <div className='flex flex-1 flex-col items-center justify-center'>
               <h1
                 className={tw(
                   headerFont.className,
                   'text-white',
-                  'text-[15vw]',
+                  'text-[10vw]',
                   'leading-none',
                 )}
               >
@@ -68,7 +68,7 @@ export default function Home() {
                   'relative md:-top-[0.5rem]',
                   'w-full gap-1',
                   'flex justify-center md:gap-5',
-                  'text-[max(2vw,0.7rem)]',
+                  'text-[max(1.5vw,0.7rem)]',
                 )}
               >
                 <span>FEBRUARY 18, 2024</span>
@@ -78,6 +78,16 @@ export default function Home() {
             </div>
           </header>
         </Section>
+
+        <div className='flex items-center justify-center py-3'>
+          <a
+            href='https://www.zola.com/wedding/friedmankatzwedding'
+            target='_blank'
+            className='rounded-md px-4 py-2 text-2xl outline outline-white transition-all hover:bg-white hover:text-black active:scale-[.98]'
+          >
+            RSVP
+          </a>
+        </div>
 
         <NavBar className='sticky top-0 z-10 hidden md:flex tall:hidden' />
 
